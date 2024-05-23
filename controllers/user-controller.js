@@ -7,7 +7,12 @@ const createTokenLogin = (_id) => {
 };
 
 const signupUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, sex } = req.body;
+  const avatars = {
+    male: "http://example.com/avatars/male.png",
+    female: "http://example.com/avatars/female.png",
+  };
+  const avatar = sex === "male" ? avatars.male : avatars.female;
   try {
     const user = await User.findOne({ username });
     console.log(user);
@@ -17,6 +22,8 @@ const signupUser = async (req, res) => {
       const user = new User({
         username,
         password: hashPassWord,
+        sex,
+        avatar,
       });
       console.log(User);
       await user.save();
