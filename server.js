@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const port = process.env.PORT || 4000;
 const userRoutes = require("./routes/users");
-const videoRoutes=require("./routes/videos")
+const videoRoutes = require("./routes/videos");
 
 const app = express();
 app.use(express.json());
@@ -14,8 +14,13 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
+
 app.use("/api/users", userRoutes);
-app.use("/api/videos",videoRoutes);
+app.use("/api/videos", videoRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
