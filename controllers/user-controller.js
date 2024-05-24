@@ -3,16 +3,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const createTokenLogin = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "60s" });
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3600s" });
 };
 
 const signupUser = async (req, res) => {
-  const { username, password, sex } = req.body;
+  const { username, password, genre } = req.body;
   const avatars = {
-    male: "http://example.com/avatars/male.png",
-    female: "http://example.com/avatars/female.png",
+    male: `https://avatars.dicebear.com/api/adventurer/${username}.svg?m=male`,
+    female: `https://avatars.dicebear.com/api/adventurer/${username}.svg?m=female`,
   };
-  const avatar = sex === "male" ? avatars.male : avatars.female;
+  const avatar = genre === "male" ? avatars.male : avatars.female;
   try {
     const user = await User.findOne({ username });
     console.log(user);
@@ -22,7 +22,7 @@ const signupUser = async (req, res) => {
       const user = new User({
         username,
         password: hashPassWord,
-        sex,
+        genre,
         avatar,
       });
       console.log(User);

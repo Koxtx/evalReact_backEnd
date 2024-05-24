@@ -1,12 +1,12 @@
 const {
   insertvideo,
   getAllvideos,
+  toggleLike,
 } = require("../controllers/videos-controller");
-const authMiddleware = require("../middlewares/authMiddleware");
 
 const router = require("express").Router();
 
-router.post("/", authMiddleware, insertvideo);
+router.post("/", insertvideo);
 router.get("/", getAllvideos);
-
+router.post("/likevideo", toggleLike);
 module.exports = router;

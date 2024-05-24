@@ -5,10 +5,8 @@ const cors = require("cors");
 const port = process.env.PORT || 4000;
 const userRoutes = require("./routes/users");
 const videoRoutes = require("./routes/videos");
-const bodyParser = require("body-parser");
 
 const app = express();
-app.use(bodyParser.json());
 app.use(express.json());
 app.use(
   cors({
